@@ -264,7 +264,7 @@ app.delete('/users/:id', (req, res) => {
 });
 
 // Add movie as favorite
-app.put('/index.html/:title', (req, res) => {
+app.put('/index.html/:title/:favorite', (req, res) => {
   res.status(201).send('Movie was added as favorite.');
 /*   let movie = top10movies.find((movies) => { return movies.title === req.params.title });
 

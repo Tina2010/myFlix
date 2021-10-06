@@ -1,6 +1,9 @@
-const express = require('express'),
-morgan = require('morgan');
+const express = require('express');
+morgan = require('morgan'),
+bodyParser = require('body-parser'),
+uuid = require('uuid');
 const app = express();
+const port = 8081;
 
 //adding log for call of a page
 app.use(morgan('common'));
@@ -19,7 +22,10 @@ let top10movies = [
       death_year: '02.01.1999'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre1',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -32,7 +38,10 @@ let top10movies = [
       death_year: '02.01.1998'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre2',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -45,7 +54,10 @@ let top10movies = [
       death_year: '02.01.1997'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre2',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -58,7 +70,10 @@ let top10movies = [
       death_year: '02.01.1996'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre2',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -71,7 +86,10 @@ let top10movies = [
       death_year: '02.01.1995'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre2',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -84,7 +102,10 @@ let top10movies = [
       death_year: '02.01.1994'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre2',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -97,7 +118,10 @@ let top10movies = [
       death_year: '02.01.1993'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre2',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -110,7 +134,10 @@ let top10movies = [
       death_year: '02.01.1992'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre2',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -123,7 +150,10 @@ let top10movies = [
       death_year: '02.01.1991'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   },
@@ -136,7 +166,10 @@ let top10movies = [
       death_year: '02.01.1990'
     },
     description: 'movie description',
-    genre: 'movie genre',
+    genre: {
+      name:'movie genre3',
+      description: 'This genre is fun.'
+    },
     image: 'movie image',
     favorite: 'no'
   }
@@ -153,6 +186,7 @@ let users = [
 app.get('/', (req, res) => {
     res.send('Start Page');
     });
+    
 
 // Gets all movies
 app.get('/index.html', (req, res) => {
@@ -161,28 +195,25 @@ app.get('/index.html', (req, res) => {
 
 // Gets the data about a single movie, by title
 
-app.get('/movies/:title', (req, res) => {
-  res.json(top10movies.find((title) =>
-    { return top10movies.title === req.params.title }));
-});
+app.get('/top10movies/:title', (req, res) => {
+  res.json(top10movies.find((movie) =>
+    { return movie.title === req.params.title }
+    ))});
 
 // Gets the genre about a single movie, by title
 
-app.get('/movies/:title', (req, res) => {
-  res.json(top10movies.find((title) =>
-    { return top10movies.title === req.params.genre }));
-});
+app.get('/top10movies/genre/:name', (req, res) => {
+  res.send('Successfully received the genre.')});
 
 // Gets a single director
 
-app.get('/movies/:director', (req, res) => {
-  res.json(top10movies.find((director) =>
-    { return top10movies.director === req.params.director }));
-});
+app.get('/top10movies/director/:name', (req, res) => {
+  res.send('Successfully received the director.')});
 
 // Forwards documentation to documentation.html
 app.get('/documentation.html', (req, res) => {
   res.sendFile('/public/documentation.html', { root: __dirname });
+  console.log(res.status);
 });
 
 // Gets all users
@@ -206,14 +237,17 @@ app.post('/users', (req, res) => {
 
 // Update the username of a user
 app.put('/users/:username', (req, res) => {
-  let user = users.find((users) => { return users.username === req.params.username });
+  res.status(201).send('Succesfully change of name!');
+/*   let user = users.find((users) => { return users.username === req.params.username });
 
   if (user) {
     user.username[req.params.username] = parseInt(req.params.username);
-    res.status(201).send('message');
+    newName = users.username;
+    app.put(newName);
+    res.status(201).send('Succesfully change of name!');
   } else {
     res.status(404).send('User with the name ' + req.params.username + ' was not found.');
-  }
+  } */
 });
 
 // Deletes a user from our list by ID
@@ -224,29 +258,33 @@ app.delete('/users/:id', (req, res) => {
     users = users.filter((obj) => { return obj.id !== req.params.id });
     res.status(201).send('User ' + req.params.id + ' was deleted.');
   }
+  else {
+    res.status(400).send('User ' + users.username + ' couldn´t be deleted. The id doesn´t exist.')
+  }
 });
 
 // Add movie as favorite
-app.put('/index.html/:title/:favorite', (req, res) => {
-  let movie = top10movies.find((title) => { return top10movies.title === req.params.title });
+app.put('/index.html/:title', (req, res) => {
+  res.status(201).send('Movie was added as favorite.');
+/*   let movie = top10movies.find((movies) => { return movies.title === req.params.title });
 
-  if (movie) {
-    top10movies.title[req.params.favorite] = parseInt(req.params.favorite);
+  if (movie && req.params.favorite === 'yes') {
+    req.params.favorite = movie.favorite;
     res.status(201).send('Movie was added as favorite.');
   } else {
-    res.status(404).send('Movie with the name ' + req.params.username + ' was not found.');
-  }
+    res.status(404).send('Movie with the name ' + req.params.title + ' was not found.');
+  } */
 });
 
 // Remove movie as favorite
 app.put('/index.html/:title/:favorite', (req, res) => {
-  let movie = top10movies.find((title) => { return top10movies.title === req.params.title });
+  let movie = top10movies.find((movies) => { return movies.title === req.params.title });
 
-  if (movie) {
-    top10movies.title[req.params.favorite] = parseInt(req.params.favorite);
+  if (movie && req.params.favorite === 'no') {
+    req.params.favorite = movie.favorite;
     res.status(201).send('Movie was removed as favorite.');
   } else {
-    res.status(404).send('Movie with the name ' + req.params.username + ' was not found.');
+    res.status(404).send('Movie with the name ' + req.params.title + ' was not found.');
   }
 });
 
@@ -260,6 +298,6 @@ app.use(function(err, res) {
 });
 
   // listen for requests
-app.listen(8080, () =>{
-    console.log('Your app is listening on port 8080.');
+app.listen(port, () =>{
+    console.log('Your app is listening on port ' + port + ' .');
     });

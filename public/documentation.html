@@ -32,35 +32,35 @@
             <table style="border-collapse: collapse">
                 <thead style="  border: 1px solid black;">
                     <th style="  border: 1px solid black;max-width: 200px;">Request</th>
-                    <th style="  border: 1px solid black;max-width: 200px;">URL</th>
+                    <th style="  border: 1px solid black;max-width: 400px;">URL</th>
                     <th style="  border: 1px solid black;max-width: 200px;">HTTP Method</th>
                     <th style="  border: 1px solid black;max-width: 200px;">Request Data Format</th>
                     <th style="  border: 1px solid black;max-width: 200px;">Response Data Body Format</th>
                 </thead>
                 <tbody>
                     <td style="  border: 1px solid black;max-width: 200px;">Get a list of all movies.</td>
-                    <td style="  border: 1px solid black;max-width: 200px;">/movies</td>
+                    <td style="  border: 1px solid black;max-width: 400px;">/index.html</td>
                     <td style="  border: 1px solid black;max-width: 200px;">GET</td>
                     <td style="  border: 1px solid black;max-width: 200px;">None</td>
                     <td style="  border: 1px solid black;max-width: 200px;">A JSON Object holding data about all movies.</td>
                 </tbody>
                 <tbody>
                     <td style="  border: 1px solid black;max-width: 200px;">Get details (description, genre, director, image URL) of a single movie.</td>
-                    <td style="  border: 1px solid black;max-width: 200px;">/movies/titles</td>
+                    <td style="  border: 1px solid black;max-width: 400px;">/top10movies/:title</td>
                     <td style="  border: 1px solid black;max-width: 200px;">GET</td>
                     <td style="  border: 1px solid black;max-width: 200px;">None</td>
                     <td style="  border: 1px solid black;max-width: 200px;">A JSON Object holding data about a single movie.</td>
                 </tbody>
                 <tbody>
                     <td style="  border: 1px solid black;max-width: 200px;">Get genre (name and description) of a single movie.</td>
-                    <td style="  border: 1px solid black;max-width: 200px;">/movies/titles</td>
+                    <td style="  border: 1px solid black;max-width: 400px;">/top10movies/genre/:name</td>
                     <td style="  border: 1px solid black;max-width: 200px;">GET</td>
                     <td style="  border: 1px solid black;max-width: 200px;">None</td>
                     <td style="  border: 1px solid black;max-width: 200px;">A JSON Object holding data about a genre of a single movie.</td>
                 </tbody>
                 <tbody>
                     <td style="  border: 1px solid black;max-width: 200px;">Get all details of a director.</td>
-                    <td style="  border: 1px solid black;max-width: 200px;">/movies/directors</td>
+                    <td style="  border: 1px solid black;max-width: 400px;">/top10movies/director/:name</td>
                     <td style="  border: 1px solid black;max-width: 200px;">GET</td>
                     <td style="  border: 1px solid black;max-width: 200px;">None</td>
                     <td style="  border: 1px solid black;max-width: 200px;">A JSON Object holding data about a single director.</td>
@@ -98,7 +98,7 @@
                 </tbody>
                 <tbody>
                     <td style="  border: 1px solid black;max-width: 200px;">Update information of a user (username).</td>
-                    <td style="  border: 1px solid black;max-width: 200px;">/users</td>
+                    <td style="  border: 1px solid black;max-width: 200px;">/users/:username</td>
                     <td style="  border: 1px solid black;max-width: 200px;">PUT</td>
                     <td style="  border: 1px solid black;max-width: 200px;">A JSON Object holding the username of the user, structured like:<br>
                         <code style="color: darkblue">
@@ -115,12 +115,12 @@
                 </tbody>
                 <tbody>
                     <td style="  border: 1px solid black;max-width: 200px;">Remove information of a user (username).</td>
-                    <td style="  border: 1px solid black;max-width: 200px;">/users</td>
+                    <td style="  border: 1px solid black;max-width: 200px;">/users/:id</td>
                     <td style="  border: 1px solid black;max-width: 200px;">DELETE</td>
                     <td style="  border: 1px solid black;max-width: 200px;">A JSON Object holding data about the user to add, structured like:<br>
                         <code style="color: darkblue">
                         {<br>
-                            username: "SomeName"<br>
+                            id: ""<br>
                         }
                     </code></td>
                     <td style="  border: 1px solid black;">A status response telling the user, that he deregistered.</td>
@@ -132,14 +132,14 @@
             <table style="border-collapse: collapse">
                 <thead style="  border: 1px solid black;">
                     <th style="  border: 1px solid black;max-width: 200px;">Request</th>
-                    <th style="  border: 1px solid black;max-width: 200px;">URL</th>
+                    <th style="  border: 1px solid black;max-width: 400px;">URL</th>
                     <th style="  border: 1px solid black;max-width: 200px;">HTTP Method</th>
                     <th style="  border: 1px solid black;max-width: 200px;">Request Data Format</th>
                     <th style="  border: 1px solid black;max-width: 200px;">Response Data Body Format</th>
                 </thead>
                 <tbody>
                     <td style="  border: 1px solid black;max-width: 200px;">Add movies to your favorites list.</td>
-                    <td style="  border: 1px solid black;max-width: 200px;">/</td>
+                    <td style="  border: 1px solid black;max-width: 400px;">/index.html/:title/:favorite</td>
                     <td style="  border: 1px solid black;max-width: 200px;">PUT</td>
                     <td style="  border: 1px solid black;max-width: 200px;">A JSON Object holding data of a movie in addition to a checked favorite option, structured like:<br>
                         <code style="color: darkblue">
@@ -152,7 +152,7 @@
                 </tbody>
                 <tbody>
                     <td style="  border: 1px solid black;max-width: 200px;">Remove movies from your favorites list.</td>
-                    <td style="  border: 1px solid black;max-width: 200px;">/</td>
+                    <td style="  border: 1px solid black;max-width: 400px;">/index.html/:title/:favorite</td>
                     <td style="  border: 1px solid black;max-width: 200px;">PUT</td>
                     <td style="  border: 1px solid black;max-width: 200px;">A JSON Object holding data of a movie in addition to a unchecked favorite option, structured like:<br>
                         <code style="color: darkblue">

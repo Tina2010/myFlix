@@ -5,6 +5,13 @@ uuid = require('uuid');
 const app = express();
 const port = 8081;
 
+//Integrating Mongoose with the REST API
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+let Movie = mongoose.model('Movie', movieSchema);
+let User = mongoose.model('User', userSchema);
+mongoose.connect('mongodb://localhost:8081/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
+
 //adding log for call of a page
 app.use(morgan('common'));
 

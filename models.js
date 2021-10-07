@@ -26,6 +26,14 @@ let userSchema = mongoose.Schema({
     }]
 });
 
+// Attempt to populate favoritemovies of each user
+// https://mongoosejs.com/docs/populate.html
+User.
+    findOne().populate({
+        path: 'FavoriteMovies',
+        populate: {path: FAvoriteMovies}
+    });
+
 let Movie = mongoose.model('Model', movieSchema);
 let User = mongoose.model('User', userSchema);
 

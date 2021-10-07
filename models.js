@@ -17,10 +17,10 @@ let movieSchema = mongoose.Schema({
 });
 
 let userSchema = mongoose.Schema({
-    Username: {type: String, required: true},
-    Password: {type: String, required: true},
-    Email: {type: String, required: true},
-    Birthday: Date,
+    username: {type: String, required: true},
+    password: {type: String, required: true},
+    email: {type: String, required: true},
+    birthday: Date,
     FavoriteMovies: [{ 
         type: mongoose.Schema.Types.ObjectId, ref: 'Movie' 
     }]
@@ -28,11 +28,11 @@ let userSchema = mongoose.Schema({
 
 // Attempt to populate favoritemovies of each user
 // https://mongoosejs.com/docs/populate.html
-User.
+/* User.
     findOne().populate({
         path: 'FavoriteMovies',
         populate: {path: FAvoriteMovies}
-    });
+    }); */
 
 let Movie = mongoose.model('Model', movieSchema);
 let User = mongoose.model('User', userSchema);

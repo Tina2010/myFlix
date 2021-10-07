@@ -18,13 +18,6 @@ app.use(morgan('common'));
 //middleware to recognize incoming request as JSON Object
 app.use(express.json());
 
-let users = [
-  {
-    username: 'user1',
-    id: '1'
-  }
-]
-
 // GET requests
 app.get('/', (req, res) => {
     res.send('Start Page');

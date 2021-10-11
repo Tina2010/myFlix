@@ -1,27 +1,49 @@
-const express = require('express');
-morgan = require('morgan'),
-bodyParser = require('body-parser'),
+const morgan = require('morgan');
 uuid = require('uuid');
-const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-const port = 8081;
-
-//Integrating Mongoose with the REST API
 const mongoose = require('mongoose');
+const express = require('express');
 const Models = require('./models.js');
+//Integrating Mongoose with the REST API
+
 const Movie = Models.Movie;
 const User = Models.User;
 const Genre = Models.Genre;
 const Director = Models.Director;
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
+const app = express();
+
 //adding log for call of a page
 app.use(morgan('common'));
 
 //middleware to recognize incoming request as JSON Object
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
+
+require("./auth")(app);
+
+const cors = require("cors");
+app.use(cors());
+
+const passport = require("passport");
+require("./passport");
+
+const port = 8081;
+
+const { check, validationResult } = require('express-validator');
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send(err);
+});
+
+bodyParser = require('body-parser'),
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 //------------------------------METHODS FOR CRUD--------------------------------------------
 
@@ -206,8 +228,8 @@ app.get('/users', (req, res) => {
 });
 
 //GET Return single user by username
-app.get('/users/:username', (req, res) => {
-  User.findOne({username: req.params.username})
+app.get('/users/:Username', (req, res) => {
+  User.findOne({username: req.params.Username})
     .then((user) => {
       res.json(user);
     })
@@ -218,18 +240,29 @@ app.get('/users/:username', (req, res) => {
 });
 
 // POST Allow new users to register
-app.post('/users', (req, res) => {
-  User.findOne({username: req.body.username})
+app.post('/users',[
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  // check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  let hashedPassword = User.hashPassword(req.body.Password);
+  User.findOne({Username: req.body.Username})
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.username + ' already exists.');
+        return res.status(400).send(req.body.Username + ' already exists.');
       } else {
         User
           .create({
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            birthday: req.body.birthday
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
           })
           .then((user) =>{res.status(201).json(user)})
         .catch((error) => {
@@ -246,14 +279,14 @@ app.post('/users', (req, res) => {
 
 
 // PUT Allow users to update their user info
-app.put('/users/:username', (req, res) => {
-  User.findOneAndUpdate({username: req.params.username}, 
+app.put('/users/:Username', (req, res) => {
+  User.findOneAndUpdate({username: req.params.Username}, 
     {$set:
     {
-      username: req.body.username,
-      password: req.body.password,
-      email: req.body.email,
-      birthday: req.body.birthday
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
     }
   },
   {new: true}, //new document returns after successfull change
@@ -268,13 +301,13 @@ app.put('/users/:username', (req, res) => {
 });
 
 // DELETE Allow existing users to deregister
-app.delete('/users/:username', (req, res) => {
-  User.findOneAndRemove({ username: req.params.username })
+app.delete('/users/:Username', (req, res) => {
+  User.findOneAndRemove({ username: req.params.Username })
     .then((user) => {
       if (!user) {
-        res.status(400).send(req.params.username + ' was not found');
+        res.status(400).send(req.params.Username + ' was not found');
       } else {
-        res.status(200).send(req.params.username + ' was deleted.');
+        res.status(200).send(req.params.Username + ' was deleted.');
       }
     })
     .catch((err) => {
@@ -284,8 +317,8 @@ app.delete('/users/:username', (req, res) => {
 });
 
 // POST Allow users to add a movie as favorite
-app.post('/users/:username/movies/:MovieID', (req, res) => {
-  User.findOneAndUpdate({ username: req.params.username }, {
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
+  User.findOneAndUpdate({ username: req.params.Username }, {
     $push: { FavoriteMovies: req.params.MovieID }
   },
   { new: true }, // This line makes sure that the updated document is returned
@@ -300,8 +333,8 @@ app.post('/users/:username/movies/:MovieID', (req, res) => {
 });
 
 // DELETE Allow users to remove a movie from their favorites
-app.delete('/users/:username/movies/:MovieID', (req, res) => {
-  User.findOneAndUpdate({ username: req.params.username }, {
+app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+  User.findOneAndUpdate({ username: req.params.Username }, {
     $pull: { FavoriteMovies: req.params.MovieID }
   },
   { new: true }, // This line makes sure that the updated document is returned

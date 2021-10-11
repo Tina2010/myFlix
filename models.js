@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 let genreSchema = mongoose.Schema({
     Name:{type: String, requiered: true},
@@ -25,22 +26,22 @@ let movieSchema = mongoose.Schema({
 });
 
 let userSchema = mongoose.Schema({
-    username: {type: String, required: true},
-    password: {type: String, required: true},
-    email: {type: String, required: true},
-    birthday: Date,
+    Username: {type: String, required: true},
+    Password: {type: String, required: true},
+    Email: {type: String, required: true},
+    Birthday: Date,
     FavoriteMovies: [{ 
         type: mongoose.Schema.Types.ObjectId, ref: 'Movie' 
     }]
 });
 
-// Attempt to populate favoritemovies of each user
-// https://mongoosejs.com/docs/populate.html
-/* User.
-    findOne().populate({
-        path: 'FavoriteMovies',
-        populate: {path: FAvoriteMovies}
-    }); */
+userSchema.statics.hashPassword = (Password) => {
+    return bcrypt.hashSync(Password, 10); 
+}; 
+
+userSchema.methods.validatePassword = function(Password) {
+    return bcrypt.compareSync(Password, this.Password);
+};
 
 let Movie = mongoose.model('Movie', movieSchema);
 let User = mongoose.model('User', userSchema);

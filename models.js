@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 let genreSchema = mongoose.Schema({
     Name:{type: String, requiered: true},
@@ -35,9 +35,9 @@ let userSchema = mongoose.Schema({
     }]
 });
 
-userSchema.statics.hashPassword = (Password) => {
-    return bcrypt.hashSync(Password, 10); 
-}; 
+userSchema.static('hashPassword', (Password) => {
+    return bcrypt.hashSync(Password);
+});
 
 userSchema.methods.validatePassword = function(Password) {
     return bcrypt.compareSync(Password, this.Password);

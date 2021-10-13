@@ -1,0 +1,4 @@
+{"_id":{"$oid":"616558b494c3ab088587010f"},"Username":"Test1","Password":"$2a$10$9WtwAX1vuqfKGqw122IquepaRf3JkTCD1Kn6m7vFTiRVpo2b4T5o2","Email":"test@test.de","FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"616572de8253d329b5583353"},"Username":"Test2","Password":"$2a$10$SM460unr7snFhI76ojgxqOwOiD3aThXvyMTAkPpYEX5A9ctYenxMC","Email":"test@test.de","FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"6165745c8253d329b5583359"},"Username":"Test3","Password":"$2a$10$gefclnRA97Vg410.6//4eeylDatkgR0ssCncYShKtbecjwgAr3cEO","Email":"test@test.de","FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"61657ce420b8b3d334ff60ff"},"Username":"Test5","Password":"$2a$10$C7LmiX21kxv6lSfwTYU1eOgofLJSGy197szCdYHtPAo5n0z22IXLa","Email":"test@test.de","FavoriteMovies":[],"__v":0}

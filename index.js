@@ -29,8 +29,6 @@ app.use(cors());
 const passport = require("passport");
 require("./passport");
 
-const port = 8081;
-
 const { check, validationResult } = require('express-validator');
 
 app.use((err, req, res, next) => {
@@ -363,6 +361,7 @@ app.use(function(err, res) {
 });
 
   // listen for requests
-app.listen(port, () =>{
-    console.log('Your app is listening on port ' + port + ' .');
-    });
+const port = process.env.PORT || 8081;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
+});

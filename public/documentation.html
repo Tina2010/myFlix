@@ -26,6 +26,8 @@
 
 <p><a href="#start">/</a></p>
 
+<p><a href="#login">/login</a></p>
+
 <p><a href="#docu">/documentation.html</a></p>
 
 <p><a href="#movies">/movies</a></p>
@@ -81,6 +83,83 @@
 </table>
 
 <p>&nbsp;</p>
+
+<p><strong><span style="font-size:11pt"><span style="font-family:Arial"><span style="color:#000000" id="login">Endpoint: /login</span></span></span></strong><br />
+	&nbsp;</p>
+	
+	<table cellspacing="0" style="border-collapse:collapse; border:none; width:1069px">
+		<tbody>
+			<tr>
+				<td style="border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; vertical-align:top; width:95px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>Request</strong></span></span></span></p>
+				</td>
+				<td style="border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; vertical-align:top; width:216px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>URL</strong></span></span></span></p>
+				</td>
+				<td style="border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; vertical-align:top; width:116px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>HTTP Method</strong></span></span></span></p>
+				</td>
+				<td style="border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; vertical-align:top; width:197px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>Request Data Format</strong></span></span></span></p>
+				</td>
+				<td style="border-color:#000000; border-style:solid; border-width:1px; vertical-align:top; width:439px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>Response Data Body Format</strong></span></span></span></p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; vertical-align:top; width:95px">
+				<p style="text-align:center"><span style="font-size:10.5pt"><span style="font-family:'Courier New'"><span style="color:#6a9955"><strong>POST Log into myFlix</strong></span></span></span></p>
+				</td>
+				<td style="border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; vertical-align:top; width:216px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>/login</strong></span></span></span></p>
+				</td>
+				<td style="border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; vertical-align:top; width:116px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>POST</strong></span></span></span></p>
+				</td>
+				<td style="border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000; border-top:1px solid #000000; vertical-align:top; width:197px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong><p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>A JSON object holding username and password of a user.</strong></span></span></span></p>
+
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>{</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;Username&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#ce9178"><strong>&quot;Test9&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>,</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;Password&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#ce9178"><strong>&quot;1234&quot;</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>}</strong></span></span></span></p></strong></span></span></span></p>
+				</td>
+				<td style="border-color:#000000; border-style:solid; border-width:1px; vertical-align:top; width:439px">
+				<p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong><p style="text-align:center"><span style="font-size:11pt"><span style="font-family:Verdana"><span style="color:#000000"><strong>A JSON object holding all info of he user + token (to use for entering all other pages.</strong></span></span></span></p>
+
+				<p style="text-align:center"><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>{</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;user&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>{</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;_id&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#ce9178"><strong>&quot;6166ebd2b01d8eeb8c8d6ae6&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>,</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;Username&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#ce9178"><strong>&quot;Test9&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>,</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;Password&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#ce9178"><strong>&quot;(...)&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>,</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;Email&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#ce9178"><strong>&quot;test@test.de&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>,</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;FavoriteMovies&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>[],</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;__v&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#b5cea8"><strong>0</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>},</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#9cdcfe"><strong>&quot;token&quot;</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>:</strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#d4d4d4"><strong> </strong></span></span></span><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#ce9178"><strong>&quot;(...).(...).(...)</strong></span></span></span></p>
+				
+				<p><span style="font-size:9pt"><span style="font-family:Verdana"><span style="color:#dcdcdc"><strong>}</strong></span></span></span></p>
+				
+				<p>&nbsp;</p>
+				</strong></span></span></span></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<p>&nbsp;</p>
 
 <p><strong><span style="font-size:11pt"><span style="font-family:Arial"><span style="color:#000000" id="docu">Endpoint: /documentation.html</span></span></span></strong></p>
 

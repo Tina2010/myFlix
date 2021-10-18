@@ -1,18 +1,29 @@
+const dotenv = require("dotenv");
+dotenv.config();
+//Integrating Mongoose with the REST API
+const mongoose = require('mongoose');
+
+/* mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true}); */
+mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+
 const morgan = require('morgan');
 uuid = require('uuid');
-const mongoose = require('mongoose');
+
 const express = require('express');
 const Models = require('./models.js');
-//Integrating Mongoose with the REST API
+
 
 const Movie = Models.Movie;
 const User = Models.User;
 const Genre = Models.Genre;
 const Director = Models.Director;
-/* mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true}); */
-mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
+
+let auth =require("./auth.js")(app);
+
+const cors = require("cors");
+app.use(cors());
 
 //adding log for call of a page
 app.use(morgan('common'));
@@ -21,11 +32,6 @@ app.use(morgan('common'));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
-
-require("./auth.js")(app);
-
-const cors = require("cors");
-app.use(cors());
 
 const passport = require("passport");
 require("./passport");
@@ -282,11 +288,12 @@ app.post('/users',[
 
 // PUT Allow users to update their user info
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }),(req, res) => {
+  let hashedPassword = User.hashPassword(req.body.Password);
   User.findOneAndUpdate({username: req.params.Username}, 
     {$set:
     {
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday
     }
@@ -362,7 +369,7 @@ app.use(function(err, res) {
 });
 
   // listen for requests
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });

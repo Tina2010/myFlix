@@ -1,29 +1,40 @@
 const dotenv = require("dotenv");
 dotenv.config();
 //Integrating Mongoose with the REST API
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+  bodyParser = require('body-parser'),
+  express = require('express'),
+  morgan = require('morgan'),
+  Models = require('./models.js'),
+  cors = require('cors'),
+  { check, validationResult } = require('express-validator');
 
-const app = express();
-
-let auth =require("./auth.js")(app);
-
-/* mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true}); */
-mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
-
-const morgan = require('morgan');
-uuid = require('uuid');
-
-const express = require('express');
-const Models = require('./models.js');
-
+const passport = require('passport');
+require('./passport');
 
 const Movie = Models.Movie;
 const User = Models.User;
 const Genre = Models.Genre;
 const Director = Models.Director;
 
+app = express();
+
+bodyParser = require('body-parser'),
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const cors = require("cors");
 app.use(cors());
+
+let auth =require("./auth.js")(app);
+
+/* mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true}); */
+mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+
+uuid = require('uuid');
+
 
 //adding log for call of a page
 app.use(morgan('common'));
@@ -33,21 +44,11 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-const passport = require("passport");
-require("./passport");
-
-const { check, validationResult } = require('express-validator');
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send(err);
 }); 
-
-bodyParser = require('body-parser'),
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 
 //------------------------------METHODS FOR CRUD--------------------------------------------

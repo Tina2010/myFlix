@@ -3,6 +3,8 @@ dotenv.config();
 //Integrating Mongoose with the REST API
 const mongoose = require('mongoose');
 
+const app = express();
+
 let auth =require("./auth.js")(app);
 
 /* mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true}); */
@@ -19,8 +21,6 @@ const Movie = Models.Movie;
 const User = Models.User;
 const Genre = Models.Genre;
 const Director = Models.Director;
-
-const app = express();
 
 const cors = require("cors");
 app.use(cors());

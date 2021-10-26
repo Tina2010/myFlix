@@ -72,7 +72,7 @@ app.get('/', (req, res) => {
 });   
 
 // GET Return list of all movies
-app.get('/movies', /* passport.authenticate('jwt', { session: false }), */ (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movie.find()
     .then((movies) => {
       res.status(201).json(movies);

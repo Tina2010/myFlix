@@ -19,11 +19,7 @@ const Director = Models.Director;
 
 app = express();
 
-bodyParser = require('body-parser'),
-
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 

@@ -3,6 +3,8 @@ dotenv.config();
 //Integrating Mongoose with the REST API
 const mongoose = require('mongoose');
 
+let auth =require("./auth.js")(app);
+
 /* mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true}); */
 mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -20,23 +22,8 @@ const Director = Models.Director;
 
 const app = express();
 
-let auth =require("./auth.js")(app);
-
 const cors = require("cors");
-
-// set up whitelist for cors and check against it
-const allowedOrigins = ["https://obscure-castle-33842.herokuapp.com/users", "http://localhost:1234", "https://obscure-castle-33842.herokuapp.com/movies", "https://obscure-castle-33842.herokuapp.com/login/" ];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if(!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      let message = 'The CORS policy for this application does not allow access from origin' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
+app.use(cors());
 
 //adding log for call of a page
 app.use(morgan('common'));

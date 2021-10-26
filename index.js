@@ -23,7 +23,20 @@ const app = express();
 let auth =require("./auth.js")(app);
 
 const cors = require("cors");
-app.use(cors());
+
+// set up whitelist for cors and check against it
+const allowedOrigins = ["https://obscure-castle-33842.herokuapp.com/users", "http://localhost:1234", "https://obscure-castle-33842.herokuapp.com/movies", "https://obscure-castle-33842.herokuapp.com/login/" ];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      let message = 'The CORS policy for this application does not allow access from origin' + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 //adding log for call of a page
 app.use(morgan('common'));

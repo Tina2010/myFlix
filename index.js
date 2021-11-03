@@ -52,7 +52,7 @@ app.use((err, req, res, next) => {
 // GET Return list of all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movie.find()
-  .populate('Genre','Director')
+  .populate('Genre Director')
     .then((movies) => {
       res.status(201).json(movies);
     })
@@ -66,7 +66,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
 
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movie.find({Title: req.params.Title})
-  .populate('Genre Director', 'Name')
+  .populate('Genre Director')
     .then((movies) => {
       res.status(201).json(movies);
     })

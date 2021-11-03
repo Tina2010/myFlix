@@ -28,6 +28,7 @@ let auth =require("./auth.js")(app);
 /* mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true}); */
 mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
+
 uuid = require('uuid');
 
 
@@ -44,6 +45,8 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send(err);
 }); 
+
+const mongoJoin = require("mongo-join-query");
 
 
 //------------------------------METHODS FOR CRUD--------------------------------------------
@@ -157,6 +160,22 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }),(req, 
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
+});
+
+// GET Return single genre by ID
+
+app.get('/movies/:MovieID/genres/:GenreID', passport.authenticate('jwt', { session: false }),(req, res) => {
+  Movie.find({ MovieID: req.params.MovieID }, {
+    $get: { Genre: req.params.GenreID }
+  },
+ (err, Genre) => {
+   if (err) {
+     console.error(err);
+     res.status(500).send('Error: ' + err);
+   } else {
+     res.json(Genre);
+   }
+ });
 });
 
 // GET Return all directors

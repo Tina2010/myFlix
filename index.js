@@ -49,18 +49,6 @@ app.use((err, req, res, next) => {
 
 //------------------------------METHODS FOR CRUD--------------------------------------------
 
-app.get('/test/:Title', (req, res) => {
-    Movie.find({Title: req.params.Title})
-    .populate('Genre')
-      .then((genre) => {
-        res.status(201).json(genre);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      });
-  });
-
 // GET Return list of all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movie.find()
@@ -166,6 +154,20 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }),(req, 
     });
 });
 
+// GET genre of single movie
+
+app.get('/genre/:Title', (req, res) => {
+  Movie.find({Title: req.params.Title})
+  .populate('Genre')
+    .then((genre) => {
+      res.status(201).json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 // GET Return all directors
 
 app.get('/directors', passport.authenticate('jwt', { session: false }),(req, res) => {
@@ -214,6 +216,20 @@ app.post('/directors', passport.authenticate('jwt', { session: false }),(req, re
     .catch((error) => {
       console.error(error);
       res.status(500).send('Error: ' + error);
+    });
+});
+
+// GET director of single movie
+
+app.get('/:Title/director', (req, res) => {
+  Movie.find({Title: req.params.Title})
+  .populate('Director')
+    .then((director) => {
+      res.status(201).json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
     });
 });
 

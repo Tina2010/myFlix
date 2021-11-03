@@ -156,7 +156,7 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }),(req, 
 
 // GET genre of single movie
 
-app.get('/genre/:Title', (req, res) => {
+app.get('/:Title/genre', (req, res) => {
   Movie.find({Title: req.params.Title})
   .populate('Genre')
     .then((genre) => {

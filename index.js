@@ -225,7 +225,7 @@ app.get('/:Title/director', (req, res) => {
   Movie.find({Title: req.params.Title})
   .populate('Director')
     .then((movie) => {
-      res.status(201).json(movie.Director);
+      res.status(201).json(movie);
     })
     .catch((err) => {
       console.error(err);

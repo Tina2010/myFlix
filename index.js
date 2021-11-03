@@ -49,18 +49,17 @@ app.use((err, req, res, next) => {
 
 //------------------------------METHODS FOR CRUD--------------------------------------------
 
-app.get('/test', (req, res) => {
-  Movie.find({Title: req.params.Title}).populate('Genre').
-  exec(function (err, movie) {
-    if (err) return handleError(err);
-    console.log('The Genre is %s', movie.Genre.Name);
-  })});
-
-// GET Requests
-app.get('/', (req, res) => {
-  res.sendFile('/index.html', { root: __dirname });
-  console.log(res.status);
-});   
+app.get('/test/:Title', (req, res) => {
+    Movie.find({Title: req.params.Title})
+    .populate('Genre')
+      .then((genre) => {
+        res.status(201).json(genre);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  });
 
 // GET Return list of all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {

@@ -49,6 +49,13 @@ app.use((err, req, res, next) => {
 
 //------------------------------METHODS FOR CRUD--------------------------------------------
 
+app.get('/test', (req, res) => {
+  Movie.find({Title: req.params.Title}).populate('Genre').
+  exec(function (err, movie) {
+    if (err) return handleError(err);
+    console.log('The Genre is %s', movie.Genre.Name);
+  });
+
 // GET Requests
 app.get('/', (req, res) => {
   res.sendFile('/index.html', { root: __dirname });

@@ -46,8 +46,6 @@ app.use((err, req, res, next) => {
   res.status(500).send(err);
 }); 
 
-const mongoJoin = require("mongo-join-query");
-
 
 //------------------------------METHODS FOR CRUD--------------------------------------------
 
@@ -160,22 +158,6 @@ app.get('/genres/:Name', passport.authenticate('jwt', { session: false }),(req, 
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
-});
-
-// GET Return single genre by ID
-
-app.get('/movies/:MovieID/genres/:GenreID', passport.authenticate('jwt', { session: false }),(req, res) => {
-  Movie.find({ MovieID: req.params.MovieID }, {
-    $get: { Genre: req.params.GenreID }
-  },
- (err, Genre) => {
-   if (err) {
-     console.error(err);
-     res.status(500).send('Error: ' + err);
-   } else {
-     res.json(Genre);
-   }
- });
 });
 
 // GET Return all directors

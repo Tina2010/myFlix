@@ -224,8 +224,8 @@ app.post('/directors', passport.authenticate('jwt', { session: false }),(req, re
 app.get('/:Title/director', (req, res) => {
   Movie.find({Title: req.params.Title})
   .populate('Director')
-    .then((director) => {
-      res.status(201).json(director);
+    .then((movie) => {
+      res.status(201).json(movie.Director);
     })
     .catch((err) => {
       console.error(err);

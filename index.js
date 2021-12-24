@@ -380,17 +380,14 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 
 // GET fav movies from one user
 app.get('/users/:Username/movies', passport.authenticate('jwt', { session: false }),(req, res) => {
-  User.findOne({ username: req.params.Username }, {
-    $pull: { FavoriteMovies: req.params.MovieID }
-  },
- (err) => {
-   if (err) {
-     console.error(err);
-     res.status(500).send('Error: ' + err);
-   } else {
-     res.json(FavoriteMovies);
-   }
- });
+  User.findOne({ FavoriteMovies: req.params.FavoriteMovies })
+    .then((favMov) => {
+      res.json(favMov);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('error:' + err)
+    });
 });
 
 //---------------------END OF CRUD METHODS---------------------------------

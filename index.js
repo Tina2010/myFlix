@@ -382,9 +382,7 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 app.get('/users/:Username/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
   //Look through database for username input by user
   User.findOne({Username: req.params.Username})
-  .populate(
-   ' FavoriteMovies '
-  )
+  .populate({ path: 'FavoriteMovies' })
   //Returns user's movie list
   .then(function(movieList) {
       res.status(201).json(movieList);

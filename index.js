@@ -380,14 +380,13 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 
 // GET fav movies from one user
 app.get('/users/:Username/movies', passport.authenticate('jwt', { session: false }),(req, res) => {
-  User.findOne({ username: req.params.Username },
+  User.findOne({ Username: req.params.Username },
  (err, favMovies) => {
    if (err) {
      console.error(err);
      res.status(500).send('Error: ' + err);
    } else {
-    var filtered = favMovies.filter(favMovies => 
-    favMovies.FavoriteMovies);
+    var filtered = favMovies.filter(FavoriteMovies);
     res.json(filtered);
    }
  });

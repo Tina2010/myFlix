@@ -381,7 +381,7 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 // GET fav movies from one user
 app.get('/users/:Username/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
   //Look through database for username input by user
-  Users.findOne({Username: req.params.Username})
+  User.findOne({Username: req.params.Username})
   //Returns user's movie list
   .then(function(movieList) {
       res.status(201).json(movieList);

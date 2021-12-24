@@ -382,8 +382,8 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 app.get('/users/:Username/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
   User.findOne({ Username: req.params.Username }
   .populate('FavoriteMovies')
-  .select('FavoriteMovies')
     .then((movies) => {
+      movies.select('FavoriteMovies');
       res.status(201).json(movies);
     })
     .catch((err) => {

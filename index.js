@@ -383,7 +383,7 @@ app.get('/users/:Username/movies', passport.authenticate('jwt', {session: false}
   //Look through database for username input by user
   User.findOne({Username: req.params.Username})
   .populate(
-   ' Title Description Genre Director Actors ImagePath Featured '
+   ' FavoriteMovies '
   )
   //Returns user's movie list
   .then(function(movieList) {

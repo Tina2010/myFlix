@@ -382,17 +382,19 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 app.get('/users/:Username/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
   //Look through database for username input by user
   User.findOne({Username: req.params.Username})
-  .populate({ path: 'FavoriteMovies' })
-  //Returns user's movie list
-  .then(function(movieList) {
-      res.status(201).json(movieList);
-  })
-  //Catch for all errors
-  .catch(function(error) {
-      console.error(error);
-      res.status(500).send('Error ' + error);
-  });
-});
+  .populate(
+    "FavoriteMovies"
+  );
+  if (err) {
+    res.status(500).send(`
+    Oh no! Something went wrong! 😱
+    Error: ${err}`)
+  } else {
+    res.status(200).json({
+      Favorites: user.FavoriteMovies,
+    })
+  }
+ });
 
 //---------------------END OF CRUD METHODS---------------------------------
 

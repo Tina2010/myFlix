@@ -391,7 +391,7 @@ app.get('/users/:Username/movies', passport.authenticate('jwt', {session: false}
     Error: ${err}`)
   } else {
     res.status(200).json({
-      Favorites: user.FavoriteMovies,
+      Favorites: User.FavoriteMovies,
     })
   }
  });

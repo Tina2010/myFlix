@@ -310,7 +310,7 @@ app.post('/users',[
 // PUT Allow users to update their user info
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }),(req, res) => {
   let hashedPassword = User.hashPassword(req.body.Password);
-  User.findOneAndUpdate({username: req.params.Username}, 
+  User.findOneAndUpdate({Username: req.params.Username}, 
     {$set:
     {
       Username: req.body.Username,
@@ -364,7 +364,7 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
 
 // DELETE Allow users to remove a movie from their favorites
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }),(req, res) => {
-  User.findOneAndUpdate({ username: req.params.Username }, {
+  User.findOneAndUpdate({ Username: req.params.Username }, {
     $pull: { FavoriteMovies: req.params.MovieID }
   },
   { new: true }, // This line makes sure that the updated document is returned
@@ -380,7 +380,7 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 
 // GET fav movies from one user
 app.get('/users/:Username/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
-  User.findOne({ Username: req.params.Username })
+  User.find({ Username: req.params.Username })
   .populate('FavoriteMovies')
   .select('FavoriteMovies')
     .then((movies) => {

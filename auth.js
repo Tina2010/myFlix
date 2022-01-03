@@ -13,7 +13,13 @@ let generateJWTToken = user => {
     });
 }
 
-/* POST login. */
+/**
+ * POST login
+ * @method POST
+ * @param {URL} endpoint - endpoint to post user for login "/login"
+ * @returns {string} - sucess / error message
+ * @returns {json-object} - returns a token for the user to authorize
+ */
 module.exports = (router) => {
     router.post('/login', (req, res) => {
         passport.authenticate('local', {session: false }, (err, user) => {

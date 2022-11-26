@@ -1,3 +1,5 @@
+Archived project: This project will not be maintained anymore.
+
 ## myFlix-API
 
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/paulinemarg/myFlix-backend?color=green"> <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/paulinemarg/myFlix-backend?color=yellow"> <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/paulinemarg/myFlix-backend?style=plastic">
